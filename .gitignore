@@ -1,0 +1,20 @@
+# Local builds and deployment
+/build/
+/dist/
+/CMakeFiles/
+CMakeCache.txt
+CMakeUserPresets.json
+
+# User settings, statistics, diagnostics and temporary artifacts
+/data/
+/work/
+/packages/
+*.log
+*.jsonl
+*.zip
+
+# IDE and per-user settings
+/.vs/
+/.idea/
+*.user
+*.suo
