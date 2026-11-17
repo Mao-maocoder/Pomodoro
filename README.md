@@ -1,15 +1,6 @@
 # 番茄钟
 
-一个离线使用的 Windows 桌面番茄闹钟。项目、程序和数据都放在 E:\alarm。
-
-## 启动
-
-双击 E:\alarm\dist\Pomodoro.exe，或根目录的“启动番茄钟.cmd”。
-再次启动会打开已经运行的窗口，不会启动第二个计时器。
-
-发布目录包含 Qt 依赖，不需要安装 Qt、Python 或 Node.js。
-本机已安装 MSVC 2022 运行库；在其他电脑上使用时，需要微软官方 x64 Visual C++ Redistributable。
-请保留完整 dist 目录，不要只复制 exe。
+一个离线使用的 Windows 桌面番茄闹钟。
 
 ## 使用
 
@@ -35,7 +26,6 @@
 
 ## 数据
 
-设置、统计和进度保存在 E:\alarm\data\state.json。
 启动、状态变化、完成和退出时保存，运行中每 10 秒保存一次。
 重启后，未完成的运行阶段以暂停状态恢复；已完成阶段不会再次计数或再次提醒。
 保存使用原子提交。保存失败会在界面明确提示，内存中的计时仍可继续，但未保存的修改可能在重启后丢失。
@@ -46,19 +36,9 @@
 
 技术栈：C++20、Qt 6.11.1、Qt Quick/QML、MSVC 2022 x64、CMake/Ninja。
 编译不依赖 Python，assets 中已有提示音和图标。生成的着色器包嵌入 exe，运行程序不需要 qsb 或 Qt Creator。
-build.cmd 明确指定本机 Qt 的 MSVC 套件，避免误用 Anaconda 内的 Qt。
-
-在 PowerShell 中执行：
-
-    & 'E:\alarm\build.cmd'
-    & 'E:\alarm\test.cmd'
-    & 'E:\alarm\验证30分钟铃声.cmd'
-    & 'E:\alarm\package.ps1'
 
 - src：C++ 计时、保存、统计和 Windows 集成。
-- qml：主界面、滑动玻璃阶段标签、圆角按钮、设置和统计。
-- shaders：文字透镜折射和玻璃材质的 GLSL 源码。
-- tests：正式的 Qt Test 回归测试源码。30 分钟音频实测使用单独脚本，将 Qt Test 时限设为 35 分钟，期间仅写入 work/audio-test-data。
+- qml：主界面。
 - assets：用户提供的番茄钟图标和提示音。
 - build：构建产物。
 - dist：可运行的发布程序。
@@ -87,5 +67,3 @@ build.cmd 明确指定本机 Qt 的 MSVC 套件，避免误用 Anaconda 内的 Q
 - Qt ShaderEffect：https://doc.qt.io/qt-6.11/qml-qtquick-shadereffect.html
 - 着色器图层：https://doc.qt.io/qt-6.11/qml-qtquick-shadereffectsource.html
 - qsb 工具：https://doc.qt.io/qt-6.11/qtshadertools-qsb.html
-
-软件渲染模式保留胶囊外观和滑动动画，Qt 官方的 ShaderEffect 不支持该模式，因此文字透镜效果仅在图形渲染模式下提供。本机实际验收使用 Windows Direct3D 11。
